@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Tuotteet</title>
+    <link rel='icon' href='images/LOL.png'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" 
+     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+     crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+     crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Oxygen|Poppins|Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+</head>
+<body>
+    
+    <!--Navbar-->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #f77103">
+        <a class="navbar-brand" href="index.html">
+            <img alt="logo" src="img/linux.png"  class = "logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Videopuhelut ja chat Linux-ympäristössä</a>
+            </li>
+            <li class="nav-item highlight">
+                <a class="nav-link" href="jitsi-meet.html">Jitsi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="riot.html">Riot<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+<!--Article-->
+<article id="main-col">
+  <h1>Riot</h1>
+                <p>Riot on muutakin kuin videoneuvotteluratkaisu - se on erinomainen työkalu ryhmätyöskentelyyn. Voit käyttää Riot-sovellusta selaimessa tai sovelluksella, joka toimii MacOS-, Windows- ja Linux-työasemilla sekä iOS- ja Android-laitteilla. 
+                </p> 
+                <br> 
+                <p><b>Asennus</b></p>
+                <button class="collapsible">1. Alkutoimet</button>
+                <div class="content">
+                    <p>Asentaminen tehdään käyttöjärjestelmän komentokehotteella eli avaalla Terminal. Asentamista varten sinun on kirjauduttava joko pääkäyttäjän tunnuksella (root) tai tavallisena käyttäjänä käyttää järjestelmänvalvojan oikeuksia (sudo-komentoa).</p>
+                    <img id="ohje" src="img/3.png">
+                    <p id="koodi"> Komennolla <b>sudo su - </b>vaihdettu pääkäyttäjään. avaa Terminal -> vaihda root käyttäjään sudo su - komennolla tai käytä sudoa komennoissa.</p><br>
+                    <p>Suositeltua on käyttää palomuuria ja tällöin seuraavat palomuurin portit täytyy olla avoimena tulevalle liikenteelle.</p>
+                        <ul>80 TCP (HTTP)</ul>
+                        <ul>443 TCP (HTTPS)</ul>
+                        <ul>10000 - 20000 UTP</ul><br>
+                    <p>Voit tarkistaa palomuurin säännöt iptables -L -n -komennolla ja asettaa säännöt esimerkiksi ufw -palomuuriohjelmalle allow in-komennolla alla näkyvän kuvan mukaisesti.</p>
+                    <img id="ohje" src="img/5.png">
+                    <p></p>
+                    <img id="ohje" src="img/6.png">
+                    <p></p>
+                </div>
+                <button class="collapsible">2. Pakettivaraston lataaminen</button>
+                <div class="content">
+                    <p>Käytetään pakettien hallinnassa APT-työkalua. APT transport sallii sellaisten arkistojen käytön, joihin pääsee HTTP Secure -protokollan kautta (HTTPS).</p>
+                        <p>Syötä alkuun komento: <b>apt install -y lsb-release wget apt-transport-https</b></p>
+                        <br>
+                    <p>Ladataan asennusavain https://packages.riot.im/debian/riot-im-archive-keyring.gpg -osoitteesta komennolla <b>sudo wget -O /usr/share/keyrings/riot-im-archive-keyring.gpg</b>.</p>
+                    <img src="img/22riot.png">
+                    <p>Seuraavaksi lisätään pääsy Riotin pakettivarastoon komennolla.</p>
+                    <p><b>echo "deb [signed-by=/usr/share/keyrings/riot-im-archive-keyring.gpg] https://packages.riot.im/debian/ $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/riot-im.list
+                    </b></p>
+                    <img src="img/24.png">
+                    <br>
+                </div>
+                <button class="collapsible">3. Ohjelman asennus</button>
+                <div class="content">
+                    <p>Päivitetään pakettilistaus käyttöön komennolla <b>apt update</b>.</p>
+                    <img src="img/25.png">
+                    <p>Asennus tehdään komennolla <b>apt install riot-web</b>.</p>
+                    <img src="img/25riot.png">
+                    <br>
+                </div>
+                <button class="collapsible">Käyttökokemukseni</button>
+                <div class="content">
+                    <p>Ohjelma vaatii käyttäjätunnuksen luomisen, mutta sähköpostiosoitteen lisääminen ei ole pakollista. Suotavaa se on toki tunnuksen ylläpitoa ajatellen. Keskusteluhuoneissa kirjautuneet käyttäjät voivat keskustella chatissa tai videopuheluita soittaen. Palvelua voi käyttää myös suomenkielellä.</p>
+                    <p>Jitsiin verrattuna Riot:illa on loistava ominaisuus, jolla ohjelmassa voi ottaa käyttöön myös muita yhteistyöohjelmia - kuten IRC, Twitter, Telegram, SMS ja Gitter. Myös Jitsin voi asentaa lisäosaksi ja käyttää Riot ohjelmassa!</p>
+
+                        <img id="ohje" src="img/27riotsuomeksi.png">
+                        <img id="ohje" src="img/28.png">
+                        <img id="ohje" src="img/29.png">
+                        <img id="ohje" src="img/30.png">
+                        <img id="ohje" src="img/31.png">
+                        <img id="ohje" src="img/32.png">
+                        <img id="ohje" src="img/34.png">
+                        <img id="ohje" src="img/35.png">
+                        <img id="ohje" src="img/36.png">
+            </article>
+        </div>     
+    </section>
+
+    <!--Javascript-->
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("activecollapse");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            } 
+          });
+        }
+    </script> 
+
+<footer>
+  <p>Tämä harjoitustyö on suoritettu osana Linux- ja mobiilikäyttöjärjestelmät -kurssia Hämeen ammattikorkeakoulussa. Tekijä Jasmin Nyby 2020&copy;</p>
+</footer>
+  
+  </body>
+  </html>

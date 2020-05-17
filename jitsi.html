@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <!--<a class="navbar-brand" href="#"> <img id="logo" src="img/linux.png" alt="Logo"><p id="brand">Videopuheluohjelmat Linuxille</p></a>-->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#" style="color: black;">Videopuhelut ja chat Linux-ympäristössä</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Jitsi</a></li>
+        <li><a href="#">Riot</a></li>
+        <li><a href="#">Muita</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p><img id="picturebox" src="img/jitsi.png" alt="Jitsi"></p>
+      <p><a href="#"><img id="picturebox" src="img/Riot.png" alt="Riot"></a></p>
+      <p><a href="#">Link</a></p>
+    </div>
+
+    <div class="col-sm-8 text-left"> 
+      <h1>Jitsi Meet</h1>
+      <p>Jitsi on ilmainen avoimen lähdekoodin pikaviestin ja videopuheluohjelma. Ohjelman kehitys aloitettiin Strasbourgin yliopistossa. Vuonna 2020 Jitsillä oli 10 miljoonaa kuukausittaista käyttäjää.</p>
+      <hr>
+      <h3>Asennus</h3>
+        <div class="content">
+            <h4>1. Alkutoimet</h4>
+            <p>Asentaminen tehdään käyttöjärjestelmän komentokehotteella eli avaalla Terminal. Asentamista varten sinun on kirjauduttava joko pääkäyttäjän tunnuksella (root) tai tavallisena käyttäjänä käyttää järjestelmänvalvojan oikeuksia (sudo-komentoa).</p>
+            <img id="ohje" src="img/3.png">
+            <p id="koodi"> Komennolla <b>sudo su - </b>vaihdettu pääkäyttäjään. avaa Terminal -> vaihda root käyttäjään sudo su - komennolla tai käytä sudoa komennoissa.</p><br>
+            <p>Suositeltua on käyttää palomuuria ja tällöin seuraavat palomuurin portit täytyy olla avoimena tulevalle liikenteelle.</p>
+                <ul>80 TCP (HTTP)</ul>
+                <ul>443 TCP (HTTPS)</ul>
+                <ul>10000 - 20000 UTP</ul><br>
+            <p>Voit tarkistaa palomuurin säännöt iptables -L -n -komennolla ja asettaa säännöt esimerkiksi ufw -palomuuriohjelmalle allow in-komennolla alla näkyvän kuvan mukaisesti.</p>
+            <img id="ohje" src="img/5.png">
+            <p></p>
+            <img id="ohje" src="img/6.png">
+            <p></p>
+            <p><b>Videotapaamiseen liittymisestä varten on suositeltavaa käyttää DNS nimeä. Mikäli sinulla ei kuitenkaan ole sellaista käytössäsi, voit käyttää myös tietokoneesi IP-osoitetta. Huomioi, että tällöin IP-osoitettasi käytetään aina videopuhelukeskusteluun liittyessä.</b></p>
+        </div>
+            <div class="content">
+                <h4>2. Pakettivaraston lataaminen</h4>
+                <p>Ensin ladataan asennusavain Jitsin verkkosivuilta komennolla <b>wget https://download.jitsi.org/jitsi-key.gpg.key</b>. Kun lataus on valmis, tarkista asennusavainten tiedot komennolla <b>gpg --search-keys dev@jitsi.org</b>. </p>
+                <img id="ohje" src="img/8.png"><br>
+                <img id="ohje" src="img/10.png"><br>
+                <br><br>
+                <p>Valitse seuraavaksi 1. tai 2. asennusavain. Ennen kuin avain lisätään järjestelmän avainrinkiin, on hyvä tarkistaa että se on oikea eikä se ole vioittunut asennuksessa. Komennolla <b>gpg --list-sigs dev@jitsi.org</b> näet kaksi uutta avainta ja komennolla <b>gpg --recv-keys</b> näet kenelle avaimet on ohjattu. Damien Minkov ja Ingo Bauersach ovat osa kehitystiimiä, joten nyt olemme varmoja ettei virheitä ole ja että paketit, joita ollaan lataamassa ovat päteviä.
+                </p>
+                <img id="ohje" src="img/12.png"><p></p>
+                <br>
+                <p>Seuraavaksi täytyy lisätä pääsy Jitsin pakettivarastoon ja tämä hoituu näppärästi yhden rivin komennolla <b>echo 'deb https://download.jitsi.org stable/' > /etc/apt/sources.list.d/jitsi-stable.list</b>.</p>
+                <p>Ohjelma toimii selaimessa https-yhteydellä, joten sinulla täytyy olla toimiva SSL sertifikaatti nettipalvelimelle. Tässä on kolme vaihtoehtoa: maksullinen varmenne, ilmainen varmenne LetsEncryptistä tai itse kirjoitettu varmenne (self-signed certificate). </p>
+                <p>Jos sinulla on jo maksullinen sertifikaatti käytössäsi, ohjaa tiedostot kansioon /etc/ssl/ ja nimeä tiedostot uudelleen seuraaviksi:</p>
+                <ul>/etc/ssl/dnsname.crt --certificate file</ul>
+                <ul>/etc/ssl/dnsname.key --key file</ul>
+                <ul>Korvaa dnsname-kohta Jitsi asennuksessa käyttämälläsi dns nimellä.</ul>
+                <br>
+                <p>Jos sinulla ei ole sertifikaattia käytössäsi, sinun on mahdollista luoda sellainen tämän asennuksen yhteydessä.</p>
+
+            </div> 
+            <div class="content">
+                <h4>3. Jitsi-avaimen asentaminen</h4>
+                <p>Asennus tehdään komennolla <b>apt-key add jitsi-key.gpg.key</b>.
+                </p>
+                <img id="ohje" src="img/13.png">
+                <p>Asennuksen jälkeen päivitetään pakettilistaus käyttöön komennolla <b>apt update</b>.</p>
+                <p>WWW-palvelimena voi toimia Nginx, Apache 2.0. tai Jetty. Jetty on oletuksena käytössä, mutta toisen ohjelman voi asentaa komennolla <b>apt -y install nqinx/apache2</b>.</p>
+                <img id="ohje" src="img/14.png">
+                <p>Seuraavaksi asennamme paketin jitsi-meet komennolla <b>apt -y install jitsi-meet</b>, jolloin asentuu automaattisesti kaikki tarvittava.</p>
+                <p>Asennusohjelma kysyy verkkoaseman tunnusta, joten kirjoita joko palvelimesi DNS nimi tai tietokoneesi IP-osoite.</p>
+                <img id="ohje" src="img/15,1.png">
+                <p>Seuraavaksi voi valita sertifikaatin luomisen, jolloin asennuksen jälkeen ohjelman käyttöön saadaan LetsEncrypt sertikaatti. Tällöin suoritetaan komento niin, että ensin siirrytään oikeaan kansioon komennolla <b>/urs/share/jitsi-meet/scripts/</b> ja tämän jälkeen tehdään asennus <b>/usr/share/jitsi-meet/scripts/install-letsencrypt-cert.sh<b>. Kun komento on ajettu, pyydetään antamaan sähköpostiosoite, jota tarvitaan LetsEncryptin ilmoituksia ja viestejä varten.</p>
+                <img id="ohje" src="img/16.png">
+                <img id="ohje" src="img/17.png">
+                <p>Sitten ollaan valmiita! Nyt kun asennus on tehty, kokeile ohjelman toimivuutta. Avaa nettiselain ja syötä osoitekenttään, joko asennusvaiheessa antamasi DNS nimi tai tietokoneesi IP-osoite. Sinulle avautuu Jitsin sivu, jossa voit luoda keskusteluryhmän. Voit käyttää valmiiksi syötettyjä nimiehdotuksia tai laittaa minkä tahansa haluamasi nimen huoneelle. Näet aluksi vain oman videosi, jolloin voit tarkistaa, että hiukset on hyvin ja että kamera toimii. Voit kutsua muita keskusteluun linkittämällä heille saman URL-osoitteen/verkko-osoitteen.</p>
+                <img id="ohje" src="img/18.png">
+                <img id="ohje" src="img/20.png">
+                <img id="ohje" src="img/20jitsi.png">
+            </div>
+</div>
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Tämä harjoitustyö on suoritettu osana Linux- ja mobiilikäyttöjärjestelmät -kurssia Hämeen ammattikorkeakoulussa. Tekijä Jasmin Nyby copyright 2020</p>
+</footer>
+
+</body>
+</html>
